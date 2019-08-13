@@ -17,4 +17,15 @@
         <constructor-arg ref="eventLogger"/>
     </bean>
 
+    <bean id="event" class="com.dmytro_barsuk.spring_learning.beans.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+        </constructor-arg>
+
+    </bean>
+
 </beans>
