@@ -5,12 +5,13 @@
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
+    <import resource="loggersContext.xml"/>
+
     <bean id="client" class="com.dmytro_barsuk.spring_learning.beans.Client">
-        <constructor-arg value="1" />
+        <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="com.dmytro_barsuk.spring_learning.loggers.impl.ConsoleEventLogger"/>
 
     <bean id="app" class="com.dmytro_barsuk.spring_learning.core.App">
         <constructor-arg ref="client"/>
@@ -25,14 +26,4 @@
             <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
         </constructor-arg>
     </bean>
-
-    <bean id="fileEventLogger" class="com.dmytro_barsuk.spring_learning.loggers.impl.FileEventLogger" init-method="init">
-        <constructor-arg value="eventLog.log"/>
-    </bean>
-
-    <bean id="cacheFileEventLogger" class="com.dmytro_barsuk.spring_learning.loggers.impl.CacheFileEventLogger" destroy-method="destroy">
-        <constructor-arg value="eventLog.log"/>
-        <constructor-arg value="5"/>
-    </bean>
-
 </beans>
