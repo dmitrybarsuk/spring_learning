@@ -6,6 +6,7 @@ import com.dmytro_barsuk.spring_learning.beans.EventType;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -19,8 +20,7 @@ public class App {
     @Autowired
     private Client client;
 
-    @Autowired
-    @Resource(name = "consoleEventLogger")
+    @Value("#{T(com.dmytro_barsuk.spring_learning.beans.Event).isDay() ? consoleEventLogger : fileEventLogger}")
     private EventLogger defaultLogger;
 
     @Autowired

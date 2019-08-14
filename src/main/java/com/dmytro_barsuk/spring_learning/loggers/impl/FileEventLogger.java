@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-@Component
+@Component("fileEventLogger")
 public class FileEventLogger implements EventLogger {
 
     @Value("${misc.filepath}")
