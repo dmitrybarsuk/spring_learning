@@ -1,18 +1,23 @@
 package com.dmytro_barsuk.spring_learning.loggers.impl;
 
 import com.dmytro_barsuk.spring_learning.beans.Event;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CacheFileEventLogger extends FileEventLogger {
 
+    @Value("${misc.cacheSize}")
     private int cacheSize;
+
     private List<Event> cache;
 
-    public CacheFileEventLogger(String filename, int cacheSize) {
-        super(filename);
-        this.cacheSize = cacheSize;
+    public CacheFileEventLogger() {
+        super();
         this.cache = new ArrayList<>();
     }
 
@@ -26,6 +31,7 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
+    @PreDestroy
     public void destroy(){
         if(!cache.isEmpty()){
             writeEventsFromCache();

@@ -4,23 +4,31 @@ import com.dmytro_barsuk.spring_learning.beans.Client;
 import com.dmytro_barsuk.spring_learning.beans.Event;
 import com.dmytro_barsuk.spring_learning.beans.EventType;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Objects;
 
+@Component
 public class App {
+    @Autowired
     private Client client;
+
+    @Autowired
+    @Resource(name = "consoleEventLogger")
     private EventLogger defaultLogger;
+
+    @Autowired
+    @Resource(name = "loggerMap")
     private Map<EventType,EventLogger> loggers;
+
     private static ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-    public App(Client client, EventLogger defaultLogger, Map<EventType,EventLogger> loggers) {
-        this.client = client;
-        this.defaultLogger = defaultLogger;
-        this.loggers = loggers;
-    }
 
     public static void main(String[] args) {
         App app = (App) context.getBean("app");
