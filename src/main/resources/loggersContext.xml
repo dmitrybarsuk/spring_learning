@@ -16,4 +16,13 @@
         <constructor-arg value="5"/>
     </bean>
 
+    <bean id="combinedEventLogger" class="com.dmytro_barsuk.spring_learning.loggers.impl.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="fileEventLogger"/>
+                <ref bean="eventLogger"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
 </beans>

@@ -10,12 +10,19 @@
     <bean id="client" class="com.dmytro_barsuk.spring_learning.beans.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
 
     <bean id="app" class="com.dmytro_barsuk.spring_learning.core.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="eventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="event" class="com.dmytro_barsuk.spring_learning.beans.Event" scope="prototype">
