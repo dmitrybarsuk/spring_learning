@@ -8,10 +8,10 @@ import java.util.Random;
 
 public class Event {
 
-    int id;
-    @Setter String msg;
-    Date date;
-    DateFormat format;
+    private int id;
+    private @Setter String msg;
+    private Date date;
+    private DateFormat format;
 
     public Event(Date date, DateFormat format){
         id = new Random().nextInt(100);
