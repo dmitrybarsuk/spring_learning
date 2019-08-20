@@ -1,7 +1,5 @@
 package com.dmytro_barsuk.spring_learning.utils;
 
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 

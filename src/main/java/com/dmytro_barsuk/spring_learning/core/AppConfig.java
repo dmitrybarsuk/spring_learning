@@ -3,17 +3,14 @@ package com.dmytro_barsuk.spring_learning.core;
 import com.dmytro_barsuk.spring_learning.aspects.AspectConfig;
 import com.dmytro_barsuk.spring_learning.beans.EventType;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
-import com.dmytro_barsuk.spring_learning.loggers.impl.CombinedEventLogger;
-import com.dmytro_barsuk.spring_learning.loggers.impl.ConsoleEventLogger;
-import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.QualifierAnnotationAutowireCandidateResolver;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -35,7 +32,7 @@ public class AppConfig {
     private EventLogger combinedEventLogger;
 
     @Autowired
-    private DriverManagerDataSource driverManagerDataSource;
+    private DataSource driverManagerDataSource;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer(){
@@ -55,13 +52,13 @@ public class AppConfig {
         return new JdbcTemplate(driverManagerDataSource);
     }
 
-    @Bean(destroyMethod = "close")
+    @Bean
     public DriverManagerDataSource driverManagerDataSource(){
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/spring_testing?user=root");
+        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/spring_testing");
         driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("кщще");
-        driverManagerDataSource.setDriverClassName("com.mysql.cj.jdbc.MysqlDataSource");
+        driverManagerDataSource.setPassword("");
+        driverManagerDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return driverManagerDataSource;
     }
 }

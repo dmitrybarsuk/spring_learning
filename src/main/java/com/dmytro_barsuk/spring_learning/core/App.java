@@ -1,12 +1,12 @@
 package com.dmytro_barsuk.spring_learning.core;
 
-import com.dmytro_barsuk.spring_learning.aspects.StatisticsAspect;
 import com.dmytro_barsuk.spring_learning.beans.Client;
 import com.dmytro_barsuk.spring_learning.beans.Event;
 import com.dmytro_barsuk.spring_learning.beans.EventType;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
 import com.dmytro_barsuk.spring_learning.utils.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -28,10 +28,14 @@ public class App {
     @Resource(name = "loggerMap")
     private Map<EventType, EventLogger> loggers;
 
+    @Autowired
+    @Qualifier("dbLogger")
+    private EventLogger dbLogger;
+
     private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         App app = (App) context.getBean("app");
 
@@ -52,5 +56,6 @@ public class App {
         Event event = context.getBean("event", Event.class);
         event.setMsg(msg.replaceAll(client.getId(), client.getFullName()));
         logger.logEvent(event);
+        dbLogger.logEvent(event);
     }
 }

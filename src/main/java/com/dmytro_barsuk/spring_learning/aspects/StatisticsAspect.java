@@ -3,7 +3,6 @@ package com.dmytro_barsuk.spring_learning.aspects;
 import com.dmytro_barsuk.spring_learning.utils.Statistics;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;

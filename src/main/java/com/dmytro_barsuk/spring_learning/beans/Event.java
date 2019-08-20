@@ -1,11 +1,11 @@
 package com.dmytro_barsuk.spring_learning.beans;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Random;
@@ -14,9 +14,10 @@ import java.util.Random;
 @Scope("prototype")
 public class Event {
 
+    @Getter
     private int id;
-    private @Setter
-    String msg;
+    @Setter
+    private String msg;
     private Date date;
     private DateFormat format;
 
