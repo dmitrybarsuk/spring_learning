@@ -1,14 +1,14 @@
 package com.dmytro_barsuk.spring_learning.core;
 
+import com.dmytro_barsuk.spring_learning.aspects.StatisticsAspect;
 import com.dmytro_barsuk.spring_learning.beans.Client;
 import com.dmytro_barsuk.spring_learning.beans.Event;
 import com.dmytro_barsuk.spring_learning.beans.EventType;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
+import com.dmytro_barsuk.spring_learning.utils.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,6 +17,7 @@ import java.util.Objects;
 
 @Component
 public class App {
+
     @Autowired
     private Client client;
 
@@ -25,24 +26,26 @@ public class App {
 
     @Autowired
     @Resource(name = "loggerMap")
-    private Map<EventType,EventLogger> loggers;
+    private Map<EventType, EventLogger> loggers;
 
-    private static ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 
     public static void main(String[] args) {
+
         App app = (App) context.getBean("app");
 
         app.logEvent("Some event for user 1", EventType.INFO);
         app.logEvent("Some event for user 2", EventType.ERROR);
         app.logEvent("Hi, mr. Doctor", EventType.INFO);
 
+        Statistics.printStatisitcs();
         context.close();
     }
 
-    public void logEvent(String msg, EventType type){
+    public void logEvent(String msg, EventType type) {
         EventLogger logger = loggers.get(type);
-        if(Objects.isNull(logger)){
+        if (Objects.isNull(logger)) {
             logger = defaultLogger;
         }
 
@@ -50,5 +53,4 @@ public class App {
         event.setMsg(msg.replaceAll(client.getId(), client.getFullName()));
         logger.logEvent(event);
     }
-
 }

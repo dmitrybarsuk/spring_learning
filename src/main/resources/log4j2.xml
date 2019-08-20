@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN" monitorInterval="5">
+    <Appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d %-5p %c{2}] - %m%n"/>
+           <LevelRangeFilter minLevel="FATAL" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+    </Console>
+
+        <RollingFile name="RollingFile" fileName="src\main\resources\logs\spring.log" filePattern="spring-%i.log"
+                     append="false">
+            <PatternLayout pattern="%d %-5p [%t] %c{2} (%F:%L) - %m%n"/>
+            <SizeBasedTriggeringPolicy size="1MB"/>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="ErrorsRollingFile" fileName="src\main\resources\logs\errors.log" filePattern="errors-%i.log" append="false">
+            <PatternLayout pattern="%d %-5p [%t] %c{2} (%F:%L) - %m%n"/>
+            <SizeBasedTriggeringPolicy size="1MB"/>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="RollingFile" level="all"/>
+            <AppenderRef ref="ErrorsRollingFile" level="error"/>
+            <AppenderRef ref="Console" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>

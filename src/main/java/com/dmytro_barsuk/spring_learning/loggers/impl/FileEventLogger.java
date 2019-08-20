@@ -2,7 +2,6 @@ package com.dmytro_barsuk.spring_learning.loggers.impl;
 
 import com.dmytro_barsuk.spring_learning.beans.Event;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
-import com.sun.istack.internal.NotNull;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

@@ -3,6 +3,7 @@ package com.dmytro_barsuk.spring_learning.loggers.impl;
 import com.dmytro_barsuk.spring_learning.beans.Event;
 import com.dmytro_barsuk.spring_learning.loggers.EventLogger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +14,12 @@ import java.util.List;
 public class CombinedEventLogger implements EventLogger {
 
     @Autowired
-    private ConsoleEventLogger consoleEventLogger;
+    @Qualifier("consoleEventLogger")
+    private EventLogger consoleEventLogger;
 
     @Autowired
-    private FileEventLogger fileEventLogger;
+    @Qualifier("fileEventLogger")
+    private EventLogger fileEventLogger;
 
     private List<EventLogger> loggers;
 
